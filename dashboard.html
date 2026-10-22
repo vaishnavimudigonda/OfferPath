@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – OfferPath</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/kanban.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard" class="brand-logo">
+        <div class="brand-icon">OP</div>
+        <span>OfferPath</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/dashboard" class="nav-link active">📊 Dashboard</a></li>
+        <li><a href="/applications" class="nav-link">📁 Applications</a></li>
+        <li><a href="/resume-analysis" class="nav-link">🎯 Resume Analysis</a></li>
+        <li><a href="/interview" class="nav-link">✨ AI Interview Prep</a></li>
+      </ul>
+
+      <div class="nav-user">
+        <div class="user-badge" id="header-user-badge">
+          <div class="user-avatar" id="header-user-avatar">U</div>
+          <span id="header-user-name">User</span>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Application Intelligence Dashboard</h1>
+        <p class="page-subtitle">Track your pipeline, monitor conversion metrics, and manage application stages.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="/resume-analysis" class="btn btn-secondary btn-sm">🔍 Analyze Resume</a>
+        <a href="/interview" class="btn btn-secondary btn-sm">✨ Interview Prep</a>
+        <button class="btn btn-primary btn-sm" onclick="openModal('add-app-modal')">+ New Application</button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon primary">📁</div>
+        <div class="stat-info">
+          <h3 id="metric-total-apps">0</h3>
+          <p>Total Applications</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">⚡</div>
+        <div class="stat-info">
+          <h3 id="metric-in-progress">0</h3>
+          <p>In Progress</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon warning">🎯</div>
+        <div class="stat-info">
+          <h3 id="metric-interviews">0</h3>
+          <p>Interviews Scheduled</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon success">🏆</div>
+        <div class="stat-info">
+          <h3 id="metric-offers">0</h3>
+          <p>Offers Received</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon primary">📈</div>
+        <div class="stat-info">
+          <h3 id="metric-ats-score">—</h3>
+          <p>Avg ATS Match</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Charts -->
+    <div class="charts-grid" id="analytics-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Status Breakdown</h3>
+          <span style="font-size: 0.8rem; color: var(--gray-500);">Live Pipeline</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Application Funnel</h3>
+          <span style="font-size: 0.8rem; color: var(--gray-500);">Conversion Velocity</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="funnelChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kanban Stage Board -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+      <div>
+        <h2 style="font-size: 1.35rem; font-weight: 800;">Application Pipeline (Kanban)</h2>
+        <p style="font-size: 0.88rem; color: var(--gray-500);">Drag cards across columns or use the dropdown to transition stages.</p>
+      </div>
+    </div>
+
+    <div class="kanban-wrapper">
+      <div class="kanban-board">
+        
+        <!-- Saved Column -->
+        <div class="kanban-column" data-status="Saved">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-saved"></span>
+              <span class="column-title">Saved</span>
+            </div>
+            <span class="column-count" id="count-saved">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-saved"></div>
+        </div>
+
+        <!-- Applied Column -->
+        <div class="kanban-column" data-status="Applied">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-applied"></span>
+              <span class="column-title">Applied</span>
+            </div>
+            <span class="column-count" id="count-applied">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-applied"></div>
+        </div>
+
+        <!-- Assessment Column -->
+        <div class="kanban-column" data-status="Assessment">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-assessment"></span>
+              <span class="column-title">Assessment</span>
+            </div>
+            <span class="column-count" id="count-assessment">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-assessment"></div>
+        </div>
+
+        <!-- Interview Column -->
+        <div class="kanban-column" data-status="Interview">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-interview"></span>
+              <span class="column-title">Interview</span>
+            </div>
+            <span class="column-count" id="count-interview">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-interview"></div>
+        </div>
+
+        <!-- Offer Column -->
+        <div class="kanban-column" data-status="Offer">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-offer"></span>
+              <span class="column-title">Offer</span>
+            </div>
+            <span class="column-count" id="count-offer">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-offer"></div>
+        </div>
+
+        <!-- Rejected Column -->
+        <div class="kanban-column" data-status="Rejected">
+          <div class="column-header">
+            <div class="column-title-wrap">
+              <span class="column-dot dot-rejected"></span>
+              <span class="column-title">Rejected</span>
+            </div>
+            <span class="column-count" id="count-rejected">0</span>
+          </div>
+          <div class="kanban-cards" id="kanban-list-rejected"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Quick Add Application Modal -->
+  <div class="modal-backdrop" id="add-app-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.25rem; font-weight: 700;">Add New Application</h3>
+        <button class="close-btn" onclick="closeModal('add-app-modal')">&times;</button>
+      </div>
+      <form id="quick-add-app-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="quick-company">Company Name *</label>
+            <input type="text" id="quick-company" class="form-control" placeholder="e.g. Google, Stripe" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="quick-title">Job Title *</label>
+            <input type="text" id="quick-title" class="form-control" placeholder="e.g. Software Engineer" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="quick-status">Initial Stage</label>
+              <select id="quick-status" class="form-control">
+                <option value="Saved">Saved</option>
+                <option value="Applied" selected>Applied</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quick-location">Location</label>
+              <input type="text" id="quick-location" class="form-control" placeholder="e.g. Seattle, WA or Remote">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="quick-salary">Compensation / Package</label>
+            <input type="text" id="quick-salary" class="form-control" placeholder="e.g. $140,000 / year">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('add-app-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal-backdrop" id="details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.25rem; font-weight: 700;">Application Details</h3>
+        <button class="close-btn" onclick="closeModal('details-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="details-modal-content">
+        <!-- Dynamically injected -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('details-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    OfferPath – Job Application Intelligence Platform • Built for Students &amp; Developers
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

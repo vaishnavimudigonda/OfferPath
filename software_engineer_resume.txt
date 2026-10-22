@@ -1,0 +1,35 @@
+ALEX RIVERA
+Full Stack Software Engineer
+Seattle, WA | (555) 345-6789 | alex.rivera@example.com | github.com/alexrivera | linkedin.com/in/alexrivera
+
+PROFESSIONAL SUMMARY
+Results-driven Full Stack Engineer with 3+ years of experience designing, developing, and operating scalable web applications and microservices. Proficient in Python, JavaScript/TypeScript, React, Flask, Node.js, and PostgreSQL. Experienced with cloud infrastructure (AWS, Docker, Kubernetes) and CI/CD automation. Passionate about clean code, high-throughput backend APIs, and intuitive user interfaces.
+
+TECHNICAL SKILLS
+* Languages: Python, JavaScript, TypeScript, SQL, HTML5, CSS3, Bash
+* Frameworks & Libraries: Flask, Django, React, Node.js, Express, Next.js, Redux, Tailwind CSS
+* Databases: PostgreSQL, MySQL, Redis, SQLite, MongoDB
+* Cloud & DevOps: AWS (EC2, S3, RDS), Docker, Kubernetes, CI/CD, GitHub Actions, Linux, Nginx
+* Architecture & Tools: REST API, Microservices, Git, GitHub, Jira, Unit Testing, Agile, Scrum
+
+PROFESSIONAL EXPERIENCE
+
+Apex Digital Solutions | Seattle, WA
+Software Engineer | June 2023 – Present
+* Architected and deployed 4 production RESTful microservices using Python (Flask/FastAPI) and PostgreSQL, handling 2M+ daily requests.
+* Migrated legacy monolithic services to containerized Docker containers managed on AWS ECS, reducing deployment cycle times by 45%.
+* Developed interactive administrative dashboards in React, TypeScript, and Tailwind CSS with real-time analytics using Chart.js.
+* Optimized database queries, implemented Redis caching layers, improving p95 response latencies from 320ms to 75ms.
+* Spearheaded automated testing with pytest and configured GitHub Actions CI/CD pipelines, increasing test coverage from 55% to 88%.
+
+Nova Tech Labs | Austin, TX
+Junior Full Stack Developer | August 2021 – May 2023
+* Collaborated in an agile scrum team to develop customer-facing web applications using Python, JavaScript, and MySQL.
+* Implemented secure user authentication workflows using JWT and OAuth2 protocols.
+* Integrated third-party APIs including Stripe payment webhooks and SendGrid notifications.
+* Conducted weekly code reviews, resolved 120+ bug tickets, and maintained comprehensive technical documentation.
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Washington | Graduated Magna Cum Laude (2021)
+* Relevant Coursework: Data Structures & Algorithms, Database Systems, Cloud Computing, Operating Systems, Machine Learning

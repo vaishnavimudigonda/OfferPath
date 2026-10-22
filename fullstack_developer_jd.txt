@@ -1,0 +1,23 @@
+Job Title: Full Stack Software Engineer
+Company: InnovateTech
+Location: Seattle, WA (Hybrid)
+
+ROLE OVERVIEW:
+InnovateTech is seeking a Full Stack Software Engineer to build modern, responsive web portals and scalable cloud services. You will work across both client-facing React interfaces and robust backend microservices.
+
+KEY RESPONSIBILITIES:
+- Build interactive user interfaces with React, TypeScript, and modern CSS frameworks (Tailwind CSS).
+- Develop RESTful APIs and backend services using Python (Flask/FastAPI) or Node.js.
+- Work closely with PostgreSQL databases, creating optimized schema migrations and queries.
+- Containerize application components using Docker and deploy to AWS.
+- Implement comprehensive unit tests and participate in CI/CD pipeline automation.
+- Collaborate with product managers, UX designers, and peer engineers in an agile sprint cadence.
+
+QUALIFICATIONS:
+- Bachelor's degree in Computer Science, Software Engineering, or equivalent experience.
+- 2+ years of professional full-stack development experience.
+- Strong proficiency in modern JavaScript/TypeScript, React, HTML5, and CSS3.
+- Proven experience with Python or Node.js backend development and REST APIs.
+- Experience with relational databases like PostgreSQL or MySQL.
+- Experience with Git, Docker, and Agile/Scrum methodologies.
+- Excellent communication and collaborative problem-solving skills.

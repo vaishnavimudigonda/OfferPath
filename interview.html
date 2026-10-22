@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Interview Prep – OfferPath</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .interview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .interview-grid { grid-template-columns: 1fr; }
+    }
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .category-tab-btn {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--gray-300);
+      background: white;
+      color: var(--gray-700);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .category-tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .category-tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .error-banner {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-left: 4px solid var(--danger);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard" class="brand-logo">
+        <div class="brand-icon">OP</div>
+        <span>OfferPath</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/dashboard" class="nav-link">📊 Dashboard</a></li>
+        <li><a href="/applications" class="nav-link">📁 Applications</a></li>
+        <li><a href="/resume-analysis" class="nav-link">🎯 Resume Analysis</a></li>
+        <li><a href="/interview" class="nav-link active">✨ AI Interview Prep</a></li>
+      </ul>
+
+      <div class="nav-user">
+        <div class="user-badge" id="header-user-badge">
+          <div class="user-avatar" id="header-user-avatar">U</div>
+          <span id="header-user-name">User</span>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">AI Interview Question Generator</h1>
+        <p class="page-subtitle">Powered by Google Gemini to produce targeted technical, project, behavioral, and JD-specific questions.</p>
+      </div>
+    </div>
+
+    <!-- Error Banner for Missing API Key or Network Issues -->
+    <div class="error-banner" id="gemini-error-banner">
+      <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+        <span style="font-size: 1.4rem;">⚠️</span>
+        <div>
+          <h4 style="color: #991b1b; font-size: 1rem; margin-bottom: 0.35rem;">Gemini AI API Configuration Notice</h4>
+          <p id="gemini-error-message" style="color: #7f1d1d; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.6rem;">
+            Google Gemini API key is missing or not configured.
+          </p>
+          <div style="font-size: 0.82rem; color: #475569; background: white; padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid #fca5a5;">
+            <strong>How to resolve:</strong><br>
+            1. Get a free Gemini API key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>.<br>
+            2. Open your <code>OfferPath/.env</code> file.<br>
+            3. Set <code>GEMINI_API_KEY=your_actual_gemini_api_key</code> and restart the backend server.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generator Interface -->
+    <div class="interview-grid">
+
+      <!-- Left Column: Inputs Form -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700;">Role &amp; Context Details</h3>
+          <select id="select-interview-app" class="form-control" style="max-width: 220px; font-size: 0.8rem;" onchange="handleInterviewAppSelect(this.value)">
+            <option value="">Load from My Applications...</option>
+          </select>
+        </div>
+
+        <form id="interview-form">
+          <div class="form-group">
+            <label class="form-label" for="interview-job-title">Job Title / Target Role *</label>
+            <input type="text" id="interview-job-title" class="form-control" placeholder="e.g. Senior Backend Engineer" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="interview-skills">Target Skills (Comma-separated)</label>
+            <input type="text" id="interview-skills" class="form-control" placeholder="e.g. Python, Docker, Kubernetes, PostgreSQL, Redis">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="interview-jd-text">Job Description &amp; Requirements *</label>
+            <textarea id="interview-jd-text" class="form-control" style="min-height: 140px;" placeholder="Paste key responsibilities and qualifications required by the employer..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="interview-resume-text">Candidate Resume Summary (Optional)</label>
+            <textarea id="interview-resume-text" class="form-control" style="min-height: 110px;" placeholder="Paste resume excerpts or bullet points to generate questions validating your specific achievements..."></textarea>
+          </div>
+
+          <button type="submit" id="generate-questions-btn" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">
+            ✨ Generate Interview Questions with Google Gemini
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Generated Questions Output -->
+      <div id="questions-results-container">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <span id="filtered-questions-count" style="font-size: 0.85rem; font-weight: 700; color: var(--gray-600);">
+            Questions Bank
+          </span>
+          <div>
+            <select id="filter-difficulty-select" class="form-control" style="font-size: 0.8rem; padding: 0.35rem 0.65rem;">
+              <option value="All">All Difficulties</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="category-tabs">
+          <button type="button" class="category-tab-btn active" data-category="All">All Categories</button>
+          <button type="button" class="category-tab-btn" data-category="Technical">Technical</button>
+          <button type="button" class="category-tab-btn" data-category="Project">Project</button>
+          <button type="button" class="category-tab-btn" data-category="Behavioral">Behavioral</button>
+          <button type="button" class="category-tab-btn" data-category="Resume-based">Resume-based</button>
+          <button type="button" class="category-tab-btn" data-category="Job-description-specific">JD Specific</button>
+        </div>
+
+        <!-- Question Cards List -->
+        <div id="questions-list-container">
+          <div class="empty-state">
+            <div class="empty-icon">✨</div>
+            <div class="empty-title">Ready to generate interview questions</div>
+            <p>Select a job from your tracker or enter details on the left, then click Generate to create tailored technical, behavioral, and architectural interview questions.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    OfferPath – Job Application Intelligence Platform • Built for Students &amp; Developers
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/interview.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OfferPath – Job Application Intelligence Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .auth-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      background: radial-gradient(circle at top right, #eef2ff, #f8fafc 60%);
+    }
+    .auth-container {
+      width: 100%;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    @media (max-width: 860px) {
+      .auth-container { grid-template-columns: 1fr; }
+      .auth-hero-pane { display: none; }
+    }
+    .auth-hero-pane {
+      background: linear-gradient(135deg, #1e1b4b, #312e81 60%, #4338ca);
+      color: white;
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .auth-form-pane {
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .feature-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.95rem;
+      color: #c7d2fe;
+    }
+    .feature-icon {
+      background: rgba(255, 255, 255, 0.15);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .demo-box {
+      background: #f1f5f9;
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <div class="auth-container">
+      
+      <!-- Left Hero Banner -->
+      <div class="auth-hero-pane">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <div class="brand-icon">OP</div>
+            <span style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">OfferPath</span>
+          </div>
+
+          <h2 style="font-size: 2.2rem; font-weight: 800; color: white; line-height: 1.2; margin-bottom: 1rem;">
+            Land your dream role with intelligent insights.
+          </h2>
+          <p style="color: #c7d2fe; font-size: 1.05rem; line-height: 1.5;">
+            An end-to-end full-stack intelligence platform for tracking job applications, analyzing resume ATS compatibility, and generating tailored interview prep with AI.
+          </p>
+
+          <ul class="feature-list">
+            <li class="feature-item">
+              <span class="feature-icon">📊</span>
+              <div><strong>Kanban Application Tracker:</strong> Drag and drop your applications through Saved, Applied, Assessment, Interview, Offer, and Rejected stages.</div>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">🎯</span>
+              <div><strong>NLP Resume vs JD Analysis:</strong> TF-IDF cosine similarity, keyword extraction, spaCy NER, and transparent ATS scoring.</div>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✨</span>
+              <div><strong>Gemini AI Interview Prep:</strong> Generate technical, architectural, behavioral, and resume-based questions with interviewer rationale.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div style="font-size: 0.82rem; color: #a5b4fc; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1rem;">
+          College Placement &amp; GitHub Portfolio Project • Python, Flask, PostgreSQL, scikit-learn &amp; Gemini
+        </div>
+      </div>
+
+      <!-- Right Login Pane -->
+      <div class="auth-form-pane">
+        <h3 style="font-size: 1.7rem; font-weight: 800; margin-bottom: 0.35rem;">Welcome back</h3>
+        <p style="margin-bottom: 2rem; font-size: 0.92rem;">Sign in to access your applications and resume intelligence.</p>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email or Username</label>
+            <input type="text" id="login-email" class="form-control" placeholder="demo@offerpath.com or username" required>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label class="form-label" for="login-password" style="margin-bottom:0;">Password</label>
+            </div>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; margin-top: 0.5rem;">
+            Sign In to OfferPath
+          </button>
+        </form>
+
+        <div class="demo-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <strong>Demo Account (Pre-seeded):</strong>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillDemoCredentials()" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">
+              Auto-Fill
+            </button>
+          </div>
+          <div>Email: <code>demo@offerpath.com</code></div>
+          <div>Password: <code>password123</code></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">
+          Don't have an account? <a href="/register" style="font-weight: 700;">Create one now →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    function fillDemoCredentials() {
+      document.getElementById("login-email").value = "demo@offerpath.com";
+      document.getElementById("login-password").value = "password123";
+    }
+  </script>
+</body>
+</html>

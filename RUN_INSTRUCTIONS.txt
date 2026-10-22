@@ -1,0 +1,44 @@
+=================================================================
+OFFERPATH – QUICK START CHEAT SHEET (WINDOWS / VS CODE)
+=================================================================
+
+1. EXTRACT & OPEN
+   - Extract OfferPath.zip
+   - Open the "OfferPath" folder in Visual Studio Code
+
+2. OPEN TERMINAL IN VS CODE
+   - Press Ctrl + ~ (or Terminal -> New Terminal)
+
+3. CREATE & ACTIVATE VIRTUAL ENVIRONMENT
+   PowerShell:
+     python -m venv venv
+     venv\Scripts\Activate.ps1
+   (or CMD: venv\Scripts\activate.bat)
+
+4. INSTALL DEPENDENCIES & SPACY MODEL
+     cd backend
+     pip install -r requirements.txt
+     python -m spacy download en_core_web_sm
+
+5. CONFIGURE .ENV
+     Copy-Item .env.example .env
+     (or CMD: copy .env.example .env)
+     * For PostgreSQL: Set your password in DATABASE_URL
+     * Or for Zero-Setup SQLite: Uncomment DATABASE_URL=sqlite:///offerpath.db
+     * For Gemini AI: Add your free GEMINI_API_KEY from https://aistudio.google.com/app/apikey
+
+6. SEED DATABASE WITH DEMO DATA
+     python seed.py
+
+7. START SERVER
+     python run.py
+
+8. OPEN IN BROWSER
+     http://localhost:5000
+     Demo Login:
+       Email:    demo@offerpath.com
+       Password: password123
+
+9. RUN AUTOMATED TESTS (OPTIONAL)
+     pytest -v
+=================================================================

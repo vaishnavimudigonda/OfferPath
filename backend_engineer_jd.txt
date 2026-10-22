@@ -1,0 +1,26 @@
+Job Title: Senior Backend Infrastructure Engineer
+Company: CloudScale Systems
+Location: Remote (US)
+Employment Type: Full-time
+
+ABOUT THE ROLE:
+CloudScale Systems provides high-availability cloud orchestration APIs. We are searching for an experienced Backend Infrastructure Engineer to lead the design and scaling of our core telemetry and provisioning microservices.
+
+RESPONSIBILITIES:
+- Architect, build, and maintain mission-critical backend services in Python and Go.
+- Design resilient REST APIs and gRPC endpoints capable of processing 10,000+ RPS.
+- Optimize PostgreSQL database schemas, write high-performance queries, and manage Redis caching.
+- Package services in Docker containers and orchestrate deployments on Kubernetes clusters.
+- Configure automated CI/CD pipelines using GitHub Actions.
+- Participate in architectural reviews, incident response, and performance profiling.
+
+REQUIREMENTS:
+- 3+ years experience with backend software development using Python (Flask, FastAPI, or Django) or Go.
+- Hands-on expertise with PostgreSQL, database migrations, connection pooling, and Redis.
+- Solid experience with containerization (Docker) and container orchestration (Kubernetes).
+- Proficiency with AWS cloud infrastructure (EC2, S3, RDS, IAM).
+- Strong computer science foundations: data structures, concurrency, distributed systems, and OOP.
+- Familiarity with Git, automated testing (unit and integration tests), and Agile development.
+
+NICE TO HAVE:
+- Experience with Kafka, Terraform, and Prometheus/Grafana monitoring.

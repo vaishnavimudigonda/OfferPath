@@ -1,0 +1,185 @@
+/* ========================================================
+   OFFERPATH – KANBAN BOARD STYLES
+   6 Status Columns, Draggable Cards & Status Selectors
+   ======================================================== */
+
+.kanban-wrapper {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(260px, 1fr));
+  gap: 1.1rem;
+  min-width: 1400px;
+}
+
+.kanban-column {
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  max-height: 750px;
+  transition: var(--transition);
+}
+
+.kanban-column.drag-over {
+  background: #e0e7ff;
+  border-color: var(--primary);
+  border-style: dashed;
+}
+
+.column-header {
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.column-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.column-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-saved { background: #6366f1; }
+.dot-applied { background: #0284c7; }
+.dot-assessment { background: #d97706; }
+.dot-interview { background: #9333ea; }
+.dot-offer { background: #16a34a; }
+.dot-rejected { background: #dc2626; }
+
+.column-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.column-count {
+  background: var(--gray-200);
+  color: var(--gray-700);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.kanban-cards {
+  padding: 0.85rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1;
+  min-height: 180px;
+}
+
+/* Kanban Cards */
+.kanban-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.kanban-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--gray-300);
+}
+
+.kanban-card.dragging {
+  opacity: 0.45;
+  cursor: grabbing;
+}
+
+.card-company {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin-bottom: 0.85rem;
+}
+
+.card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--gray-100);
+  gap: 0.5rem;
+}
+
+.status-select {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-300);
+  background: var(--white);
+  color: var(--gray-700);
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.card-action-btn {
+  background: none;
+  border: none;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.card-action-btn:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}

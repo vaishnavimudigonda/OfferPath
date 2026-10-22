@@ -1,0 +1,24 @@
+PRIYA SHARMA
+Data Scientist & Machine Learning Engineer
+San Francisco, CA | priya.sharma@example.com | github.com/priyasharma-ml
+
+SUMMARY:
+Data Scientist with 3 years of hands-on experience developing predictive machine learning models, NLP pipelines, and data analytics dashboards. Skilled in Python, Scikit-Learn, PyTorch, Pandas, SQL, and data visualization. Demonstrated track record delivering recommendation algorithms and churn prediction models in production.
+
+TECHNICAL SKILLS:
+* Languages: Python, SQL, R, Bash
+* Machine Learning & AI: Scikit-Learn, PyTorch, TensorFlow, Pandas, NumPy, SciPy, spaCy, NLTK, Hugging Face, Transformers
+* Databases & Big Data: PostgreSQL, Snowflake, BigQuery, Redis
+* Tools & Cloud: AWS (S3, SageMaker), Docker, Git, MLflow, Jupyter, Tableau, Matplotlib, Seaborn
+
+WORK EXPERIENCE:
+Cognitive Analytics Corp | San Francisco, CA
+Machine Learning Engineer (2022 - Present)
+* Built customer lifetime value regression models using Scikit-Learn and XGBoost, improving forecasting accuracy by 28%.
+* Developed NLP classification pipelines using spaCy and Transformers to categorize 500k+ customer support inquiries monthly.
+* Deployed containerized ML inference endpoints on AWS ECS using FastAPI and Docker.
+* Orchestrated automated ETL pipelines in PostgreSQL and Snowflake.
+
+EDUCATION:
+Master of Science in Data Science | University of California, Berkeley (2022)
+Bachelor of Technology in Computer Engineering | (2020)

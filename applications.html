@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applications – OfferPath</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .table-container {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th {
+      background: var(--gray-50);
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-200);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: middle;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background: var(--gray-50);
+    }
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .search-wrap {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex: 1;
+      max-width: 500px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard" class="brand-logo">
+        <div class="brand-icon">OP</div>
+        <span>OfferPath</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/dashboard" class="nav-link">📊 Dashboard</a></li>
+        <li><a href="/applications" class="nav-link active">📁 Applications</a></li>
+        <li><a href="/resume-analysis" class="nav-link">🎯 Resume Analysis</a></li>
+        <li><a href="/interview" class="nav-link">✨ AI Interview Prep</a></li>
+      </ul>
+
+      <div class="nav-user">
+        <div class="user-badge" id="header-user-badge">
+          <div class="user-avatar" id="header-user-avatar">U</div>
+          <span id="header-user-name">User</span>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Job Applications</h1>
+        <p class="page-subtitle">Track, filter, and organize every opportunity in your career pipeline.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add New Application</button>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <input type="text" id="search-input" class="form-control" placeholder="Search by company, role, or location...">
+        <select id="filter-status" class="form-control" style="max-width: 170px;">
+          <option value="">All Statuses</option>
+          <option value="Saved">Saved</option>
+          <option value="Applied">Applied</option>
+          <option value="Assessment">Assessment</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+      <span class="badge badge-saved" id="apps-count-badge" style="font-size: 0.85rem; padding: 0.4rem 0.85rem;">
+        0 Applications
+      </span>
+    </div>
+
+    <!-- Applications Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Role / Title</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Compensation</th>
+            <th style="text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="applications-table-body">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-backdrop" id="app-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-form-title" style="font-size: 1.25rem; font-weight: 700;">Add Application</h3>
+        <button class="close-btn" onclick="closeModal('app-modal')">&times;</button>
+      </div>
+      <form id="app-form">
+        <div class="modal-body">
+          <input type="hidden" id="form-app-id">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="form-company">Company Name *</label>
+              <input type="text" id="form-company" class="form-control" placeholder="e.g. Google" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-title">Job Title *</label>
+              <input type="text" id="form-title" class="form-control" placeholder="e.g. Full Stack Engineer" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="form-status">Status</label>
+              <select id="form-status" class="form-control">
+                <option value="Saved">Saved</option>
+                <option value="Applied" selected>Applied</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-date">Application Date</label>
+              <input type="date" id="form-date" class="form-control">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="form-location">Location</label>
+              <input type="text" id="form-location" class="form-control" placeholder="e.g. Seattle, WA or Remote">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-salary">Salary / Package</label>
+              <input type="text" id="form-salary" class="form-control" placeholder="e.g. $140,000 / year">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-url">Job Posting URL</label>
+            <input type="url" id="form-url" class="form-control" placeholder="https://careers.company.com/job/123">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-jd">Job Description (used for ATS Analysis &amp; AI Prep)</label>
+            <textarea id="form-jd" class="form-control" style="min-height: 110px;" placeholder="Paste job requirements and qualifications here..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-notes">Personal Notes / Contacts</label>
+            <textarea id="form-notes" class="form-control" style="min-height: 70px;" placeholder="Referral names, recruiter correspondence, interview rounds..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('app-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal-backdrop" id="details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.25rem; font-weight: 700;">Application Details</h3>
+        <button class="close-btn" onclick="closeModal('details-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="details-modal-content">
+        <!-- Injected by applications.js -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('details-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    OfferPath – Job Application Intelligence Platform • Built for Students &amp; Developers
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/applications.js"></script>
+</body>
+</html>
